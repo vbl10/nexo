@@ -1,0 +1,388 @@
+{
+    "idiomas": {
+        "pt-BR": "🇧🇷 pt-BR",
+        "es-ES": "🇪🇸 es-ES",
+        "en-US": "🇺🇲 en-US"
+    },
+    "comum": {
+        "unidades-tempo-extenso-singular": {
+            "milisegundo": "milisegundo",
+            "segundo": "segundo",
+            "minuto": "minuto",
+            "hora": "hora",
+            "dia": "día",
+            "semana": "semana",
+            "mes": "mes"
+        },
+        "unidades-tempo-extenso-plural": {
+            "milisegundo": "milisegundos",
+            "segundo": "segundos",
+            "minuto": "minutos",
+            "hora": "horas",
+            "dia": "días",
+            "semana": "semanas",
+            "mes": "meses"
+        }
+    },
+    "cabecalho": {
+        "menu": {
+            "sair": "Salir"
+        }
+    },
+    "login": {
+        "titulo": "Iniciar sesión",
+        "form": {
+            "titulo": "Iniciar sesión",
+            "usuario": "Usuario",
+            "senha": "Contraseña",
+            "entrar": "Entrar",
+            "erros": {
+                "usuario-inexistente": "El usuario no existe",
+                "senha-incorreta": "Contraseña incorrecta",
+                "desconhecido": "Error desconocido"
+            }
+        },
+        "criar": "Crear una nueva cuenta"
+    },
+    "signup": {
+        "titulo": "Crear cuenta",
+        "form": {
+            "titulo": "Crear cuenta",
+            "nome": "Nombre",
+            "usuario": "Usuario",
+            "senha": "Contraseña",
+            "confirme-a-senha": "Confirmar contraseña",
+            "criar": "Crear",
+            "erros": {
+                "nome-obrigatorio": "El nombre es obligatorio",
+                "usuario-obrigatorio": "El usuario es obligatorio",
+                "usuario-curto": "Nombre de usuario corto (mín. {{min}})",
+                "usuario-ja-existe": "El usuario ya existe",
+                "senha-obrigatoria": "La contraseña es obligatoria",
+                "senha-curta": "Contraseña corta (mín. {{min}})",
+                "senha-minuscula": "Debe incluir una letra minúscula",
+                "senha-maiuscula": "Debe incluir una letra mayúscula",
+                "senha-digito": "Debe incluir un dígito",
+                "senha-especial": "Debe incluir un carácter especial",
+                "confirmar-senha-obrigatorio": "Confirmar la contraseña es obligatorio",
+                "senhas-diferentes": "Las contraseñas deben coincidir",
+                "desconhecido": "Error desconocido"
+            }
+        },
+        "entrar": "Iniciar sesión con mi cuenta"
+    },
+    "painel": {
+        "titulo": "Panel",
+        "criar-sala": "Crear sala",
+        "procurar-sala": {
+            "abrir": "Buscar sala",
+            "placeholder": "Código o nombre de sala"
+        },
+        "nada-aqui": "No hay nada aquí...",
+        "minhas-salas": "Mis salas",
+        "salas-favoritadas": "Salas favoritas",
+        "opcoes-sala": {
+            "configurar": "Configurar",
+            "excluir": "Eliminar",
+            "confirmar": "Confirmar eliminación de ",
+            "nao": "No",
+            "sim": "Sí",
+            "favoritar": "Favorito",
+            "desfavoritar": "Quitar favorito"
+        },
+        "remover-sala": {
+            "mensagem": "¿Eliminar sala \"{{sala}}\"?",
+            "sim": "Sí",
+            "cancelar": "Cancelar"
+        }
+    },
+    "config-sala": {
+        "titulo-configurar": "Configurar sala",
+        "titulo-criar": "Crear sala",
+        "salvar": "Guardar",
+        "criar": "Crear",
+        "porta": {
+            "_nome": "Puerto",
+            "_erros": {
+                "seletor-compartilhado-nenhum": "Elija un puerto válido"
+            }
+        },
+        "portas": {
+            "_nenhum": "Ninguno",
+            "*": "GPIO {{val}}"
+        },
+        "nome": {
+            "_nome": "Nombre",
+            "_placeholder": "Ej.: Sala 1",
+            "valor-inicial": "Sala 1",
+            "_erros": {
+                "required": "El nombre es obligatorio"
+            }
+        },
+        "variavel": {
+            "_nome": "Variable",
+            "nome": {
+                "_nome": "Nombre",
+                "_placeholder": "Significado de esta variable...",
+                "_info": {
+                    "_titulo": "Nombre",
+                    "_corpo": "<p>Nombre mostrado en la interfaz de usuario para esta variable.</p>"
+                },
+                "_erros": {
+                    "required": "El nombre es obligatorio"
+                }
+            },
+            "unidade": {
+                "_nome": "Unidad",
+                "_placeholder": "Ej.: °C",
+                "_info": {
+                    "_titulo": "Unidad",
+                    "_corpo": "<p>Unidad de la variable que se mostrará en la interfaz de usuario después de aplicar f(x).</p><p>Ejemplos: °C, m, m/s, g, kg</p>"
+                }
+            },
+            "f": {
+                "_nome": "f(x)",
+                "_placeholder": "Ej.: (x - 32) * 5/9",
+                "_info": {
+                    "_titulo": "f(x)",
+                    "_corpo": "<p>Función para transformar los valores recibidos del sistema embebido para mostrarlos en la interfaz.</p><p>Admite operaciones matemáticas básicas y funciones como \"sqrt(x)\" (raíz cuadrada) y \"sin(x)\" (seno)</p><p>Valores de entrada entre 0 y 1 para tipo analógico, 0 o 1 para tipo digital o en la magnitud definida en el campo \"Unidad\".</p>"
+                },
+                "_erros": {
+                    "expressao-invalida": "Expresión inválida"
+                }
+            },
+            "f_inv": {
+                "_nome": "f<sup>-1</sup>(x)",
+                "_placeholder": "Ej.: x * 9/5 + 32",
+                "_info": {
+                    "_titulo": "f<sup>-1</sup>(x)",
+                    "_corpo": "<p>Función para transformar los valores definidos en la interfaz para uso en el sistema embebido.</p><p>Admite operaciones matemáticas básicas y funciones como \"sqrt(x)\" (raíz cuadrada) y \"sin(x)\" (seno)</p><p>Valores de entrada entre 0 y 1 para tipo analógico, 0 o 1 para tipo digital o en la magnitud definida en el campo \"Unidad\".</p>"
+                },
+                "_erros": {
+                    "expressao-invalida": "Expresión inválida"
+                }
+            }
+        },
+        "cameras": {
+            "_nome": "Cámaras",
+            "_adicionar": "Agregar Cámara",
+            "_remover": "Eliminar Cámara {{indice}}",
+            "nome": {
+                "_nome": "Nombre",
+                "_placeholder": "Ej.: Banco de trabajo",
+                "_erros": {
+                    "required": "El nombre es obligatorio"
+                }
+            }
+        },
+        "sensores": {
+            "_nome": "Sensores",
+            "_adicionar": "Agregar Sensor",
+            "_remover": "Eliminar Sensor {{indice}}",
+            "tipo": {
+                "_nome": "Tipo",
+                "_opcoes": {
+                    "digital": "Digital",
+                    "analogico": "Analógico",
+                    "dht11": "DHT11",
+                    "carga": "Carga",
+                    "distancia": "Distancia"
+                }
+            },
+            "configuracoes": {
+                "_nome": "Configuraciones",
+                "digital": {
+                    "variaveis": {
+                        "_nome": "Variables",
+                        "digital": {
+                            "_nome": "Lectura digital"
+                        }
+                    }
+                },
+                "analogico": {
+                    "variaveis": {
+                        "_nome": "Variables",
+                        "analogica": {
+                            "_nome": "Lectura analógica"
+                        }
+                    }
+                },
+                "dht11": {
+                    "variaveis": {
+                        "_nome": "Variables",
+                        "temperatura": {
+                            "_nome": "Temperatura"
+                        },
+                        "umidade": {
+                            "_nome": "Humedad"
+                        }
+                    }
+                },
+                "carga": {
+                    "modulo": {
+                        "_nome": "Módulo",
+                        "_opcoes": {
+                            "hx711": "HX711"
+                        }
+                    },
+                    "carga-maxima": {
+                        "_nome": "Carga máxima",
+                        "_opcoes": {
+                            "500g": "500g",
+                            "1kg": "1kg",
+                            "2kg": "2kg",
+                            "5kg": "5kg",
+                            "10kg": "10kg"
+                        }
+                    },
+                    "porta-a": {
+                        "_nome": "Puerto A",
+                        "_erros": {
+                            "seletor-compartilhado-nenhum": "Elija un puerto válido"
+                        }
+                    },
+                    "porta-b": {
+                        "_nome": "Puerto B",
+                        "_erros": {
+                            "seletor-compartilhado-nenhum": "Elija un puerto válido"
+                        }
+                    },
+                    "variaveis": {
+                        "_nome": "Variables",
+                        "carga": {
+                            "_nome": "Carga"
+                        }
+                    }
+                },
+                "distancia": {
+                    "modulo": {
+                        "_nome": "Módulo",
+                        "_opcoes": {
+                            "hcsr04": "HC-SR04"
+                        }
+                    },
+                    "porta-a": {
+                        "_nome": "Puerto A",
+                        "_erros": {
+                            "seletor-compartilhado-nenhum": "Elija un puerto válido"
+                        }
+                    },
+                    "porta-b": {
+                        "_nome": "Puerto B",
+                        "_erros": {
+                            "seletor-compartilhado-nenhum": "Elija un puerto válido"
+                        }
+                    },
+                    "variaveis": {
+                        "_nome": "Variables",
+                        "distancia": {
+                            "_nome": "Distancia"
+                        }
+                    }
+                }
+            }
+        },
+        "atuadores": {
+            "_nome": "Actuadores",
+            "_adicionar": "Agregar Actuador",
+            "_remover": "Eliminar Actuador {{indice}}",
+            "tipo": {
+                "_nome": "Tipo",
+                "_opcoes": {
+                    "digital": "Digital",
+                    "analogico": "Analógico",
+                    "motor-dc": "Motor DC"
+                }
+            },
+            "configuracoes": {
+                "_nome": "Configuraciones",
+                "digital": {
+                    "variaveis": {
+                        "_nome": "Variables",
+                        "digital": {
+                            "_nome": "Escritura digital"
+                        }
+                    }
+                },
+                "analogico": {
+                    "variaveis": {
+                        "_nome": "Variables",
+                        "analogica": {
+                            "_nome": "Escritura analógica"
+                        }
+                    }
+                },
+                "motor-dc": {
+                    "porta-a": {
+                        "_nome": "Puerto A"
+                    },
+                    "porta-b": {
+                        "_nome": "Puerto B"
+                    },
+                    "variaveis": {
+                        "_nome": "Variables",
+                        "potencia": {
+                            "_nome": "Potencia"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "sala": {
+        "titulo": "Sala",
+        "nada-aqui": "Añade actuadores y sensores a esta sala para verlos aquí...",
+        "acoes": {
+            "titulo": "Acciones"
+        },
+        "sensores": {
+            "titulo": "Sensores"
+        },
+        "player": {
+            "conecte-sua-camera": "Conecta tu cámara",
+            "detalhes-conexao": {
+                "titulo": "Conectar Cámara",
+                "url": "URL",
+                "chave-stream": "Clave de Transmisión"
+            },
+            "status": {
+                "carregando": "Cargando...",
+                "offline": "Transmisión fuera de línea",
+                "payload": "Error {{codigo}}: {{tipo}}",
+                "nao-suportado": "¡Reproductor no compatible!",
+                "ambiente": "Aplicación en entorno \"{{ambiente}}\"",
+                "conectando": "Conectando..."
+            }
+        },
+        "plotter": {
+            "titulo": "Variables x Tiempo",
+            "novo-exp": {
+                "titulo": "Crear nuevo experimento",
+                "form": {
+                    "nome": "Nombre",
+                    "unidade": "Unidad",
+                    "periodo": "Período de muestreo",
+                    "criar": "Crear",
+                    "aguarde": "Espere...",
+                    "erros": {
+                        "timeout": "El dispositivo embebido no respondió a tiempo",
+                        "outro": "El servidor no respondió a tiempo u otro experimento está en ejecución",
+                        "periodo-invalido": "El período de muestreo debe estar entre {{min}} y {{max}}"
+                    }
+                }
+            },
+            "opcoes": {
+                "experimento": "Experimento",
+                "variaveis": "Variables",
+                "seguir-amostras": "Seguir muestras",
+                "escala-tempo": "Escala de tiempo",
+                "escala-y": "Escala del valores",
+                "espessura-linha": "Grosor de línea"
+            },
+            "eixos": {
+                "x": "Tiempo",
+                "y": "Valores"
+            }
+        }
+    }
+}
