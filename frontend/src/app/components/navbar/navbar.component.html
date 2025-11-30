@@ -1,0 +1,61 @@
+<div class="nav">
+    <div class="conteudo">
+        <div style="display: flex; align-items: center; gap: 10px">
+            <div class="logo" style="--color: white; width: 40px; height: 40px;"></div>
+            <h1 style="margin: 0; font-weight: 500; color: white;">Nexo</h1>
+        </div>
+        <div class="opcoes-tela-grande">
+            <select
+                [(ngModel)]="lang"
+                (change)="langService.definirIdioma(lang)"
+            >
+                <option
+                    *ngFor="let langOption of translateService.langs"
+                    [value]="langOption"
+                >
+                    {{ "idiomas." + langOption | translate }}
+                </option>
+            </select>
+            <button 
+                *ngIf="authService.estaLogado()"
+                class="inicial" 
+                popovertarget="menu" 
+                popovertargetaction="open"
+            >
+                {{(authService.dados?.nome?.[0] ?? '?').toUpperCase()}}
+            </button>
+        </div>
+        <button class="icon-btn botao-menu" popovertarget="menu" popovertargetaction="open">
+            <i class="bi bi-list"></i>
+        </button>
+    </div>
+</div>
+<div #menu id="menu" [ngClass]="['menu', authService.estaLogado() ? '' : 'nao-logado']" popover>
+    <div>
+        <header *ngIf="authService.estaLogado()">
+            <div class="inicial">{{(authService.dados?.nome?.[0] ?? '?').toUpperCase()}}</div>
+            <div class="info">
+                <span class="nome">{{authService.dados?.nome}}</span>
+                <span class="usuario">{{'@' + authService.dados?.usuario}}</span>
+            </div>
+        </header>
+        <div>
+            <ul>
+                <li class="menu-seletor-idioma">
+                    <select
+                        [(ngModel)]="lang"
+                        (change)="translateService.use(lang)"
+                    >
+                        <option
+                            *ngFor="let langOption of translateService.langs"
+                            [value]="langOption"
+                        >
+                            {{ "idiomas." + langOption | translate }}
+                        </option>
+                    </select>
+                </li>
+                <li *ngIf="authService.estaLogado()" (click)="logout()"><i class="bi bi-box-arrow-left"></i>&nbsp; {{ "cabecalho.menu.sair" | translate }}</li>
+            </ul>
+        </div>
+    </div>
+</div>

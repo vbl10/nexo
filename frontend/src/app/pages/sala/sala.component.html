@@ -1,0 +1,24 @@
+<div>
+    <div style="display: grid; grid-template-columns: 0fr 1fr; width: 100%; gap: 10px; margin-bottom: 10px; align-items: center;">
+        <button class="icon-btn-circle" routerLink="/inicio"><i class="bi bi-arrow-left"></i></button>
+        <h2 style="margin: 0; color: rgb(35, 35, 35); text-wrap-mode: nowrap; text-overflow: ellipsis; overflow: hidden;">{{sala?.modelo?.nome}}</h2>
+    </div>
+    <main>
+        @if ((sala?.modelo?.cameras?.length ?? 0) > 0) {
+            <app-player [cameras]="sala?.modelo?.cameras ?? []"></app-player>
+        }
+        <div class="container-ferramentas">
+            <div class="container-paineis">
+                <app-acoes *ngIf="this.sala?.modelo?.atuadores?.length ?? 0 > 0"></app-acoes>
+                <app-sensores *ngIf="this.sala?.modelo?.sensores?.length ?? 0 > 0"></app-sensores>
+            </div>
+            <app-plotter *ngIf="(this.sala?.modelo?.atuadores?.length ?? 0 > 0) || (this.sala?.modelo?.sensores?.length ?? 0 > 0)" [salaPronta]="salaPronta"></app-plotter>
+        </div>
+        <div 
+            *ngIf="!((this.sala?.modelo?.atuadores?.length ?? 0 > 0) || (this.sala?.modelo?.sensores?.length ?? 0 > 0))"
+            style="color: var(--texto-leve); text-align: center;"
+        >
+            {{ "sala.nada-aqui" | translate }}
+        </div>
+    </main>
+</div>

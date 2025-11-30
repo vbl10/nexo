@@ -1,0 +1,45 @@
+
+.container-cameras {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#video-player-status {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.3);
+    padding: 10px;
+    display: grid;
+    grid-template-rows: 0fr 1fr;
+    > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    &.reproduzindo {
+        display: none;
+    }
+}
+
+#container-cameras-guias {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+#container-cameras-guias > button {
+    --cor-selecionado: var(--primario);
+    --cor-normal: rgba(0, 0, 0, 0.1);
+    border: none;
+    padding: 0.2em;
+    font-size: 1em;
+    color: rgba(from var(--texto) r g b / 0.9);
+    border-radius: 0;
+    border-bottom: solid 3px var(--cor-normal);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#container-cameras-guias > button:hover {
+    cursor: pointer;
+    border-bottom: solid 3px rgba(0, 0, 0, 0.3);
+}

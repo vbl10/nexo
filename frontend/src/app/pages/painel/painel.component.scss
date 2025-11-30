@@ -1,0 +1,123 @@
+ul.opcoes {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+@media (max-width: 500px) {
+    ul.opcoes {
+        grid-template-columns: unset;
+        grid-template-rows: 1fr 1fr;
+    }
+}
+
+.listas-salas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+@media (max-width: 600px) {
+    .listas-salas {
+        grid-template-columns: unset;
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+    }
+}
+
+.lista-sala {
+    > div {
+        list-style: none;
+        padding-left: 0;
+        gap: 10px;
+        display: flex;
+        flex-direction: column;
+
+        > button {
+            padding-left: 20px;
+            display: flex;
+            
+            justify-content: space-between;
+
+            .opcoes-item-lista-sala {
+                display: flex;
+                align-items: center;
+                transition: opacity 0.2s;
+                gap: 10px;   
+            }
+        }
+    }
+}
+
+.nada-aqui {
+    display: block; 
+    margin-top: 30px; 
+    padding-left: 10px; 
+    font-size: 14pt; 
+    color: gray;
+}
+
+.container-caixa-pesquisa {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+
+app-modal-dialog#dialogPesquisarSala {
+
+    form {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        position: sticky;
+        top: 0;
+        background-color: var(--background);
+    
+        > i.bi.bi-search {
+            --icon-size: 28px;
+            font-size: var(--icon-size);
+            width: calc(var(--icon-size) * 1.2);
+            height: calc(var(--icon-size) * 1.2);
+            color: var(--primario);
+        }
+        > input {
+            background-color: transparent;
+        }
+    }
+}
+
+.resultados-pesquisa {
+    padding-left: 20px;
+    > ol {
+        list-style: none;
+        padding: 5px 20px 5px 5px;
+    }
+    .resultados-pesquisa-item {
+        background-color: transparent;
+        outline: none;
+        border: none;
+        text-align: left;
+        width: 100%;
+        cursor: pointer;
+        padding: 20px;
+        border-radius: 20px;
+        .resultados-pesquisa-nome {
+            display: block;
+            font-size: 1.5em;
+            color: hsl(from var(--texto) h s l / 0.8);
+        }
+        .resultados-pesquisa-codigo {
+            font-size: 1.2em;
+            color: hsl(from var(--texto) h s l / 0.5);
+        }
+
+        transition: all 0.2s;
+        &:hover, &:focus {
+            --cor: hsl(from var(--primario) h s l / 0.05);
+            background-color: var(--cor);
+            box-shadow: 0 0 10px var(--cor);
+        }
+    }
+}

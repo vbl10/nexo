@@ -1,0 +1,154 @@
+<div class="painel">
+    <h3>{{ "sala.plotter.titulo" | translate }}</h3>
+    <div class="plotter">
+        <div [ngClass]="['toolbar', mostrarOpcoes ? '' : 'fechado']">
+            <button 
+                class="icon-btn medium secundario" 
+                style="font-size: 30px;" 
+                (click)="alternarPlotagem()"
+            >
+                <i [ngClass]="'bi ' + (idExperimentoEmAndamento != 0 ? 'bi-stop-fill' : 'bi-play-fill')"></i>
+            </button>
+            <button class="icon-btn medium secundario" (click)="restaurar()">
+                <i class="bi bi-house-fill"></i>
+            </button>
+            <button class="icon-btn medium secundario" (click)="salvar()">
+                <i class="bi bi-download"></i>
+            </button>
+            <button class="icon-btn medium secundario" (click)="mostrarOpcoes = !mostrarOpcoes">
+                <i class="bi bi-gear-fill"></i>
+            </button>
+        </div>
+        <div class="form tamanho-normal" id="divOpcoes" [ngClass]="mostrarOpcoes ? '' : 'fechado'">
+            <button class="icon-btn medium secundario btn-fechar" (click)="mostrarOpcoes = !mostrarOpcoes"><i class="bi bi-chevron-left"></i></button>
+            <div>
+                <div class="scroll">
+                    @if (experimentos.length > 0) {
+                        <div style="padding-left: 2px;">
+                            <label for="seletorExp">{{ "sala.plotter.opcoes.experimento" | translate }}</label>
+                            <div style="overflow: visible; display: flex; flex-direction: row; align-items: center;">
+                                <button class="icon-btn small secundario" style="padding-top: 5px;">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <select [(ngModel)]="idExperimentoSelecionado" id="seletorExp" class="controle" (change)="aoEscolherExperimento()">
+                                    <option *ngFor="let exp of experimentos" [value]="exp.id">{{(exp.id == idExperimentoEmAndamento ? '▷ ' : '') + exp.nome}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="plots">
+                            <div style="
+                                display: flex; 
+                                align-items: center; 
+                                justify-content: space-between; 
+                                margin-bottom: 10px;
+                                padding-right: 12px;
+                                overflow: visible;
+                            ">
+                                <span>
+                                    {{ "sala.plotter.opcoes.variaveis" | translate }}
+                                </span>
+                                <button class="icon-btn small" (click)="alternarVisualizacaoTodosPlots()">
+                                    <i [ngClass]="['bi', (temAlgumPlotHabilitado() ? 'bi-eye' : 'bi-eye-slash')]"></i>
+                                </button>
+                            </div>
+                            <div>
+                                @for(plot of plots; track $index) {
+                                    <button 
+                                        class="plot"
+                                        [ngClass]="[plot.habilitado ? 'habilitado' : '']" 
+                                        [ngStyle]="{'--cor-linha': plot.cor}"
+                                        (click)="alternarVisualizacaoPlot($index)"
+                                    >
+                                        <span>
+                                            {{ plot.nome }} {{plot.unidade.length > 0 ? '(' + plot.unidade + ')' : ''}}
+                                        </span>
+                                        <div style="display: flex;">
+                                            <button 
+                                                class="icon-btn small"
+                                                (click)="focarEmPlotTempo($event)"
+                                            >
+                                                <i class="bi bi-arrows"></i>
+                                            </button>
+                                            <button 
+                                                class="icon-btn small"
+                                                (click)="focarEmPlotY($event, $index)"
+                                            >
+                                                <i class="bi bi-arrows-vertical"></i>
+                                            </button>
+                                        </div>
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    }
+                    <div >
+                        <app-toggle-switch
+                            [(estado)]="seguirAmostras"
+                            (change)="desenhar()"
+                            [id]="'chkSeguirAmostras'"
+                            tamanho="pequeno"
+                        >
+                            <span class="label">
+                                {{ "sala.plotter.opcoes.seguir-amostras" | translate }}
+                            </span>
+                        </app-toggle-switch>
+                    </div>
+                    <div>
+                        <label for="inputEscalaTempo">{{
+                            "sala.plotter.opcoes.escala-tempo" | translate
+                        }}</label>
+                        <input
+                            type="number"
+                            id="inputEscalaTempo"
+                            [(ngModel)]="escalaX"
+                            (change)="desenhar()"
+                        />
+                    </div>
+                    <div>
+                        <label for="inputEscalaY">{{
+                            "sala.plotter.opcoes.escala-y" | translate
+                        }}</label>
+                        <input
+                            type="number"
+                            id="inputEscalaY"
+                            [(ngModel)]="escalaY"
+                            (change)="desenhar()"
+                        />
+                    </div>
+                    <div>
+                        <label for="inputEspessuraPlot">{{
+                            "sala.plotter.opcoes.espessura-linha" | translate
+                        }}</label>
+                        <input
+                            type="number"
+                            id="inputEspessuraPlot"
+                            [(ngModel)]="espessuraLinhas"
+                            min="2"
+                            max="8"
+                            (change)="desenhar()"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="padding-bottom: 1.4em; padding-left: 1.4em; position: relative">
+            <div id="divPlotterContainer" style="height: 100%">
+                <canvas
+                    #canvasPlotter
+                    id="canvasPlotter"
+                    width="400"
+                    height="400"
+                ></canvas>
+            </div>
+            <div style="position: absolute; aspect-ratio: 1; top: 50%; left: 0; translate: 0 -50%; rotate: -90deg">
+                <span>
+                    {{ "sala.plotter.eixos.y" | translate }}
+                </span>
+            </div>
+            <div style="position: absolute; bottom: 0; width: 100%; text-align: center;">
+                {{ "sala.plotter.eixos.x" | translate}} (ms * {{ts}})
+            </div>
+        </div>
+    </div>
+</div>
+<app-novo-exp #dialogNovoExp></app-novo-exp>

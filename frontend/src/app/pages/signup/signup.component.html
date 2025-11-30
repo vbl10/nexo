@@ -1,0 +1,137 @@
+<div
+    style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    "
+>
+    <div
+        style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        "
+    >
+        <form 
+            class="form tamanho-grande container" 
+            style="padding: 40px; padding-top: 20px; width: 100%; max-width: 350px;" 
+            [formGroup]="form"
+            (submit)="signup()"
+        >
+            <h2 style="margin-bottom: 20px">{{ "signup.form.titulo" | translate }}</h2>
+            <div [ngClass]="[nome.touched && nome.invalid ? 'invalido' : '']">
+                <label for="nome">{{ "signup.form.nome" | translate }}</label>
+                <input
+                    type="text"
+                    name="nome"
+                    id="nome"
+                    formControlName="nome"
+                    class="controle"
+                />
+                <ul class="erro">
+                    <li *ngIf="nome.getError('required')">
+                        <i class="bi bi-exclamation-circle"></i> 
+                        <span>
+                            {{ "signup.form.erros.nome-obrigatorio" | translate }}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div [ngClass]="[usuario.touched && usuario.invalid ? 'invalido' : '']">
+                <label for="usuario">{{ "signup.form.usuario" | translate }}</label>
+                <input
+                    type="text"
+                    name="usuario"
+                    id="usuario"
+                    formControlName="usuario"
+                    class="controle"
+                />
+                <ul class="erro">
+                    <li *ngIf="usuario.getError('required'); else erroUsuario">
+                        <i class="bi bi-exclamation-circle"></i> 
+                        <span>
+                            {{ "signup.form.erros.usuario-obrigatorio" | translate }}
+                        </span>
+                    </li>
+                    <ng-template #erroUsuario>
+                        <li *ngIf="usuario.getError('minlength')">
+                            <i class="bi bi-exclamation-circle"></i>
+                            <span>
+                                {{ "signup.form.erros.usuario-curto" | translate: {min: usuario.errors?.['minlength'].requiredLength } }}
+                            </span>
+                        </li>
+                    </ng-template>
+                </ul>
+            </div>
+            <div [ngClass]="[senha.touched && senha.invalid ? 'invalido' : '']">
+                <label for="senha">{{ "signup.form.senha" | translate }}</label>
+                <input
+                    type="password"
+                    name="senha"
+                    id="senha"
+                    formControlName="senha"
+                    class="controle"
+                />
+                <ul class="erro">
+                    <li *ngIf="senha.getError('required'); else erroSenha">
+                        <i class="bi bi-exclamation-circle"></i>
+                        <span>
+                            {{ "signup.form.erros.senha-obrigatoria" | translate }}
+                        </span>
+                    </li>
+                    <ng-template #erroSenha>
+                        <li *ngIf="senha.getError('minlength')">
+                            <i class="bi bi-exclamation-circle"></i>
+                            <span>
+                                {{ "signup.form.erros.senha-curta" | translate: {min: senha.errors?.['minlength'].requiredLength } }}
+                            </span>
+                        </li>
+                        <li *ngFor="let erro of senha.getError('senhaFraca')">
+                            <i class="bi bi-exclamation-circle"></i>
+                            <span>
+                                {{ ("signup.form.erros.senha-" + erro) | translate }}
+                            </span>
+                        </li>
+                    </ng-template>
+                </ul>
+            </div>
+            <div
+                [ngClass]="[(confirmaSenha.touched && (confirmaSenha.invalid || form.getError('senhasDiferentes'))) ? 'invalido' : '']"
+            >
+                <label for="confirmaSenha">{{ "signup.form.confirme-a-senha" | translate }}</label>
+                <input
+                    type="password"
+                    name="confirmaSenha"
+                    id="confirmaSenha"
+                    formControlName="confirmaSenha"
+                    class="controle"
+                    onpaste="return false"
+                    ondrop="return false"
+                    autocomplete="off"
+                />
+                <ul class="erro">
+                    <li class="erro" *ngIf="confirmaSenha.getError('required'); else erroConfirmaSenha">
+                        <i class="bi bi-exclamation-circle"></i>
+                        <span>
+                            {{ "signup.form.erros.confirmar-senha-obrigatorio" | translate }}
+                        </span>
+                    </li>
+                    <ng-template #erroConfirmaSenha>
+                        <li class="erro" *ngIf="form.getError('senhasDiferentes')">
+                            <i class="bi bi-exclamation-circle"></i>
+                            <span>
+                                {{ "signup.form.erros.senhas-diferentes" | translate }}
+                            </span>
+                        </li>
+                    </ng-template>
+                </ul>
+            </div>
+            <button type="submit" class="btn primario" [disabled]="form.invalid">{{ "signup.form.criar" | translate }}</button>
+            <span *ngIf="erro" class="erro"><i class="bi bi-exclamation-circle"></i> {{ ("signup.form.erros." + erro) | translate }}</span>
+        </form>
+        <a [routerLink]="'/login'">{{ "signup.entrar" | translate }}</a>
+    </div>
+</div>

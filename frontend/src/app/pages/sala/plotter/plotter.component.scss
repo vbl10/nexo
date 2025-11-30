@@ -1,0 +1,139 @@
+:host {
+    --cor-fundo: white;
+    --cor-grade: gray;
+}
+
+.painel {
+    aspect-ratio: calc(4 / 3);
+    max-height: 85vh;
+    min-width: 100%;
+    display: grid;
+    grid-template-rows: 0fr 1fr;
+}
+
+@media (max-width: 1000px) {
+    .painel {
+        aspect-ratio: unset;
+    }
+}
+
+.plotter {
+    display: grid;
+    grid-template-columns: 0fr 1fr;
+    gap: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.toolbar {
+    display: flex;
+    position: absolute;
+    --margin-h: 0px;
+    z-index: 2;
+    gap: 5px;
+
+    &.fechado {
+        background-color: var(--background);
+        box-shadow: 0px 0px 4px 4px var(--background);
+        border-radius: 10px;
+    }
+}
+
+#divOpcoes {
+    position: relative;
+    z-index: 1;
+    min-width: 250px;
+    overflow: hidden;
+
+    transition: all 0.5s;
+
+    &.fechado {
+        min-width: 0;
+        width: 0;
+        border-color: transparent;
+    }
+
+    .btn-fechar {
+        position: absolute;
+        z-index: 3;
+        right: 0;
+    }
+
+    > div {
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        padding-top: 40px;
+        padding-bottom: 20px;
+        padding-right: 5px;
+        gap: 10px;
+        height: 100%;
+
+        .scroll {
+            min-width: 244px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 30px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            padding-right: 5px;
+            padding-bottom: 20px;
+        }
+    }
+}
+
+.bi-stop-fill {
+    color: rgb(255, 90, 90) !important;
+    --cor-hover: rgba(255, 0, 0, 0.613);
+}
+:disabled {
+    .bi-stop-fill {
+        color: rgba(255, 90, 90, 0.662) !important;
+    }
+}
+
+.plots {
+    > div {
+        border-radius: 5px;
+        overflow: hidden;
+    }
+    > div > .plot {
+        border: none;
+        outline: none;
+        background-color: transparent;
+        font-size: 0.9em;
+        display: flex;
+        text-align: left;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 12px;
+        border-left: 4px solid hsl(from var(--cor-linha) h s l / 0.5);
+        color: hsl(from var(--texto) h s l / 0.5);
+        &.habilitado {
+            border-left: 4px solid var(--cor-linha);
+            color: unset;
+        }
+        background-color: var(--background);
+        &:focus {
+            background-color: hsl(from var(--primario) h s l / 0.1);
+        }
+        &:hover {
+            background-color: hsl(from var(--primario) h s l / 0.2);
+            cursor: pointer;
+        }
+    }
+}
+
+#divPlotterContainer {
+    position: relative;
+    z-index: 0;
+}
+
+#canvasPlotter {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}

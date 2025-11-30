@@ -1,0 +1,46 @@
+.popover-padrao:popover-open, .popover-padrao:open {
+    translate: -50% 0;
+    opacity: 100%;
+}
+.popover-padrao {
+    &::backdrop {
+        background-color: rgba(0,0,0, 0.05);
+    }
+    top: 80px;
+    left: calc(50% - 0px);
+    
+    overflow: visible;
+    word-wrap: break-word;
+    margin: 0px;
+    padding: 20px;
+    max-width: calc(100vw - 10px);
+    
+    width: 500px;
+    border-radius: 20px;
+    border: none;
+    background-color: var(--background);
+    overflow: hidden;
+    max-height: calc(100vh - 160px);
+
+    translate: -50% -20px;
+    opacity: 0%;
+
+    transition:
+        opacity 0.2s,
+        translate 0.2s,
+        display 0.2s allow-discrete, 
+        overlay 0.2s allow-discrete;
+}
+@starting-style {
+    .popover-padrao:popover-open, .popover-padrao:open {
+        translate: -50% -20px;
+        opacity: 0%;
+    }
+}
+
+@media (max-height: 600px) {
+    .popover-padrao {
+        top: 10px;
+        max-height: calc(100vh - 20px);
+    }
+}

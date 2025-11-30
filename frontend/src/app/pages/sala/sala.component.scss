@@ -1,0 +1,44 @@
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.container-ferramentas {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.container-paineis {
+    display: grid;
+    &:has(app-acoes + app-sensores) {
+        grid-template-columns: 1fr 1fr;
+    }
+    gap: 30px;
+}
+
+@media (min-width: 1001px) {
+    .container-ferramentas:has(app-acoes), 
+    .container-ferramentas:has(app-sensores) {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+    }
+    .container-paineis {
+        display: flex;
+        flex-direction: column;
+    }
+}   
+
+@media (max-width: 540px) {
+    .container-paineis {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        align-items: stretch;
+        justify-content: center;
+    }
+}

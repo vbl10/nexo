@@ -1,0 +1,16 @@
+@use '../../../popover.scss';
+
+.info {
+    padding: 0.555em;
+    
+    h2 {
+        i {
+            color: hsl(from var(--primario) h calc(l + 20) 50);
+        }
+        margin-bottom: 27px;
+    }
+    p {
+        line-height: 1.3em;
+        margin-bottom: 16px;
+    }
+}

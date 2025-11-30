@@ -1,0 +1,69 @@
+/* Hide the default checkbox */
+.toggle-switch input[type="checkbox"] {
+    display: none;
+}
+
+label {
+    cursor: pointer;
+}
+
+.toggle-switch {
+    display: inline-flex;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+}
+
+.toggle-switch:has(input:disabled) {
+    opacity: 0.6;
+}
+
+.toggle-switch > div {
+    --size: 0.85;
+    &.pequeno {
+        --size: 0.62;
+    }
+    position: relative;
+    width: calc(60px * var(--size));
+    min-width: calc(60px * var(--size));
+    height: calc(30px * var(--size));
+    border-radius: calc(15px * var(--size));
+    border: calc(2px * var(--size)) solid lightgray;
+}
+
+
+.toggle-switch > div > div:first-child {
+    position: absolute;
+    top: calc(6px * var(--size));
+    left: calc(6px * var(--size));
+    border-radius: calc(7px * var(--size));
+    width: calc(13px * var(--size));
+    height: calc(14px * var(--size));
+    margin: auto;
+    transition: width 0.075s linear;
+    background-color: var(--secundario);
+}
+
+
+.toggle-switch > input[type="checkbox"]:checked + div > div:first-child {
+    width: calc(44px * var(--size));
+}
+
+
+.toggle-switch > div > div:last-child {
+    position: absolute;
+    top: calc(3px * var(--size));
+    left: calc(3px * var(--size));
+    height: calc(20px * var(--size));
+    width: calc(20px * var(--size));
+    border-radius: calc(10px * var(--size));
+    background-color: var(--primario);
+    border: none;
+    transition: transform 0.075s linear;
+}
+
+.toggle-switch > input[type="checkbox"]:checked + div > div:last-child {
+    transform: translateX(calc(29px * var(--size)));
+}

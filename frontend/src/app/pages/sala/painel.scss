@@ -1,0 +1,25 @@
+.painel {
+    padding: 0.8333em 1.6666em;
+    border-radius: 0.5555em;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgb(0, 0, 0, 0.1);
+}
+
+.painel h3 {
+    text-align: center;
+}
+
+.painel-controle {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0fr 1fr;
+    height: 100%;
+}
+
+.painel-controle > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5555em;
+    padding: 1.1111em 0;
+}
+

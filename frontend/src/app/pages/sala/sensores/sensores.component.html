@@ -1,0 +1,12 @@
+<section class="painel painel-controle">
+    <h3>{{ "sala.sensores.titulo" | translate }}</h3>
+    <table class="sensores">
+        <tr *ngFor="let sensor of sensores">
+            <td>{{ sensor.nome }}</td>
+            <td>
+                <span id="sensorTmp1">{{ sensor.valor.toPrecision(5) }}&nbsp;</span>
+                <span>{{ sensor.unidade }}</span>
+            </td>
+        </tr>
+    </table>
+</section>

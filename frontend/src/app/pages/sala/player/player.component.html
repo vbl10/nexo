@@ -1,0 +1,75 @@
+<div class="container-cameras">
+    <div id="container-cameras-guias">
+        <button 
+            *ngFor="let camera of cameras; let i = index"
+            [ngStyle]="{'border-color': (i == guiaSelecionada ? 'var(--cor-selecionado)' : 'var(--cor-normal)')}"
+            (click)="btnGuiaOnClick(i)"
+        >
+            {{camera.nome}}
+        </button>
+    </div>
+    <div style="width: 100%; display: flex; justify-content: center;">
+        <video
+            #video
+            id="video-player"
+            width="750"
+            height="421"
+            playsinline
+            [hidden]="!reproduzindo"
+        ></video>
+        <div #playerStatus id="video-player-status" [ngClass]="reproduzindo ? 'reproduzindo' : ''">
+            <p>
+                {{ 
+                    ("sala.player.status." + status) | translate: {
+                        codigo: payload?.code, 
+                        tipo: payload?.type,
+                        ambiente: ambiente
+                    } 
+                }}
+            </p>
+            <div>
+                <div 
+                    *ngIf="cameras[guiaSelecionada].url_transmissao?.length ?? 0 > 0"
+                    style="
+                        width: fit-content; 
+                        height: fit-content; 
+                        background-color: var(--background); 
+                        border-radius: 10px;
+                    "
+                >
+                    <button 
+                        class="icon-text-btn medio" 
+                        style="width: fit-content; height: fit-content;"
+                        (click)="modalConectarCamera.abrir()"
+                    >
+                        <i class="bi bi-camera-video"></i>
+                        <span>
+                            {{ "sala.player.conecte-sua-camera" | translate }}
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-modal-dialog #modalConectarCamera>
+    <div style="padding: 10px;">
+        <h2>{{ "sala.player.detalhes-conexao.titulo" | translate }}</h2>
+        <div style="display: flex; flex-direction: column; gap: 1.2em">
+            <div>
+                <h4>{{ "sala.player.detalhes-conexao.url" | translate }}:</h4>
+                <div style="padding-left: 10px; display: flex; align-items: center; gap: 15px;">
+                    <span style="word-break: break-all; color: var(--primario);">{{cameras[guiaSelecionada].url_transmissao}}</span>
+                    <app-clique-copia [valor]="cameras[guiaSelecionada]?.url_transmissao ?? ''"></app-clique-copia>
+                </div>
+            </div>
+            <div>
+                <h4>{{ "sala.player.detalhes-conexao.chave-stream" | translate }}:</h4>
+                <div style="padding-left: 10px; display: flex; align-items: center; gap: 15px;">
+                    <span style="word-break: break-all; color: var(--primario);">{{cameras[guiaSelecionada].stream_key}}</span>
+                    <app-clique-copia [valor]="cameras[guiaSelecionada]?.stream_key ?? ''"></app-clique-copia>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-modal-dialog>

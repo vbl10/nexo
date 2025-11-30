@@ -1,0 +1,47 @@
+<div
+    style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    "
+>
+    <div
+        style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        "
+    >
+        <form 
+            [formGroup]="form"
+            class="form tamanho-grande container" 
+            style="padding: 40px; padding-top: 20px; width: 100%; max-width: 350px;"
+        >
+            <h2 style="margin-bottom: 20px">{{ "login.form.titulo" | translate }}</h2>
+            <div>
+                <label for="username">{{ "login.form.usuario" | translate }}</label>
+                <input
+                    type="text"
+                    name="username"
+                    id="username"
+                    formControlName="usuario"
+                />
+            </div>
+            <div>
+                <label for="password">{{ "login.form.senha" | translate }}</label>
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    formControlName="senha"
+                />
+            </div>
+            <button class="btn primario" (click)="login()" [disabled]="!form.valid">{{ "login.form.entrar" | translate }}</button>
+            <span *ngIf="erro" style="color: rgb(255, 80, 80);"><i class="bi bi-exclamation-circle"></i> {{ ("login.form.erros." + erro) | translate }}</span>
+        </form>
+        <a [routerLink]="'/signup'">{{ "login.criar" | translate }}</a>
+    </div>
+</div>

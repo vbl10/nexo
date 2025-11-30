@@ -1,0 +1,181 @@
+<h1>{{ "painel.titulo" | translate }}</h1>
+<div style="display: flex; flex-direction: column; gap: 40px">
+    <ul class="opcoes">
+        <li>
+            <a routerLink="/config-sala" class="icon-text-btn grande">
+                <i class="bi bi-plus"></i>
+                <span> {{ "painel.criar-sala" | translate }} </span>
+            </a>
+        </li>
+        <li>
+            <button (click)="dialogPesquisarSala.abrir()" class="icon-text-btn grande">
+                <i class="bi bi-search"></i>
+                <span> {{ "painel.procurar-sala.abrir" | translate }} </span>
+            </button>
+        </li>
+    </ul>
+    <div class="listas-salas">
+        <div class="lista-sala">
+            <h2 style="text-align: center;"><i class="bi bi-person" style="margin-right: 10px; font-size: 22pt;"></i>{{ "painel.minhas-salas" | translate }}</h2>
+            @if (minhasSalas.length > 0) {
+                <div>
+                    <button *ngFor="let sala of minhasSalas" class="icon-text-btn grande" (click)="router.navigateByUrl('/sala/' + sala.id)">
+                        <span>
+                            {{sala.nome}}
+                        </span>
+                        <div class="opcoes-item-lista-sala" >
+                            <button (click)="abrirOpcoesSala(sala); $event.stopPropagation()" class="icon-btn medium">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                        </div>
+                    </button>
+                </div>
+            }
+            @else {
+                <span class="nada-aqui">{{ "painel.nada-aqui" | translate }}</span>
+            }
+        </div>
+        <div class="lista-sala">
+            <h2 style="text-align: center;"><i class="bi bi-bookmark" style="margin-right: 10px; font-size: 22pt;"></i>{{ "painel.salas-favoritadas" | translate }}</h2>
+            @if (salasFavoritadas.length > 0) {
+                <div>
+                    <button *ngFor="let sala of salasFavoritadas" class="icon-text-btn grande" (click)="router.navigateByUrl('/sala/' + sala.id)">
+                        <span>
+                            {{sala.nome}}
+                        </span>
+                        <div class="opcoes-item-lista-sala">
+                            <button (click)="abrirOpcoesSala(sala); $event.stopPropagation()" class="icon-btn medium">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                        </div>
+                    </button>
+                </div>
+            }
+            @else {
+                <span class="nada-aqui">{{ "painel.nada-aqui" | translate }}</span>
+            }
+        </div>
+    </div>
+</div>
+<app-modal-dialog #dialogPesquisarSala id="dialogPesquisarSala" (aoabrir)="aoAbrirProcurarSala()">
+    <div class="container-caixa-pesquisa">
+        <form class="form">
+            <i class="bi bi-search"></i>
+            <input 
+                autofocus 
+                spellcheck="false"
+                ngModel
+                #inputBuscaSala="ngModel"
+                [ngModelOptions]="{standalone: true}" 
+                type="text" 
+                [placeholder]="'painel.procurar-sala.placeholder' | translate"
+                (input)="aoDigitarBuscaSala(inputBuscaSala.value)"
+            >
+        </form>
+        <div *ngIf="resultadosPesquisaSala.length > 0" class="resultados-pesquisa">
+            <ol>
+                <li *ngFor="let resultado of resultadosPesquisaSala; let idx = index">
+                    <button class="resultados-pesquisa-item" (click)="aoEscolherResultadoPesquisaSala(idx)">
+                        <span class="resultados-pesquisa-nome">
+                            {{resultado.nome}}
+                        </span>
+                        <span class="resultados-pesquisa-codigo">
+                            {{resultado.id}}
+                        </span>
+                    </button>
+                </li>
+            </ol>
+        </div>
+    </div>
+</app-modal-dialog>
+<app-modal-dialog #dialogOpcoesSala (aofechar)="aoFecharOpcoesSala()">
+    <div style="padding: 10px;">
+        <h2 style="margin-bottom: 1em;">{{salaSelecionada?.nome}}</h2>
+        <div 
+            style="
+                margin-bottom: 1em; 
+                display: flex; 
+                justify-content: center;
+                font-size: 1.1833em;
+                color: var(--primario);
+                gap: 10px;
+                align-items: center;
+            "
+            >
+            <i class="bi bi-share"></i>
+            <span>{{salaSelecionada?.id ?? 'erro '}}</span>
+            <app-clique-copia [valor]="salaSelecionada?.id ?? ''"></app-clique-copia>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+            @if (salaSelecionada?.proprietario) {
+                <button 
+                    class="icon-text-btn medio sem-container"
+                    [routerLink]="'/config-sala/' + salaSelecionada?.id"
+                >
+                    <i class="bi bi-gear"></i>
+                    {{ "painel.opcoes-sala.configurar" | translate }}
+                </button>
+                @if (!confirmandoExclusao) {
+                    <button 
+                        class="icon-text-btn medio sem-container" 
+                        style="--cor: rgb(255, 152, 152);"
+                        (click)="confirmandoExclusao = true"
+                    >
+                        <i class="bi bi-trash"></i>
+                        {{ "painel.opcoes-sala.excluir" | translate }}
+                    </button>
+                }
+                @else {
+                    <div 
+                        style="
+                            --padding: 15px;
+                            padding: var(--padding); 
+                            border-radius: var(--padding);
+                            background-color: rgba(255, 0, 0, 0.031); 
+                        "
+                    >
+                        <h4 style="font-size: 14pt; color: rgb(93, 8, 8); margin-bottom: 15px; text-align: center;">
+                            {{ "painel.opcoes-sala.confirmar" | translate }}"{{salaSelecionada?.nome}}"?
+                        </h4>
+                        <div style="display: flex; gap: 30px; justify-content: center;">
+                            <button 
+                                (click)="confirmandoExclusao = false" 
+                                class="btn" 
+                                style="
+                                    padding: 10px 20px; 
+                                    --background-color: transparent; 
+                                    --box-shadow-color: transparent;
+                                    --outline-color: rgba(255, 0, 0, 0.294);
+                                    --outline-width: 2px;
+                                "
+                            >
+                                {{ "painel.opcoes-sala.nao" | translate }}
+                            </button>
+                            <button 
+                                (click)="excluirSala(salaSelecionada?.id)"
+                                class="btn" 
+                                style="
+                                    --background-color: hsl(from var(--erro) h calc(s * 0.8) calc(l * 0.9)); 
+                                    color: white;
+                                    font-weight: bold;
+                                    padding: 10px 20px;
+                                "
+                            >
+                                {{ "painel.opcoes-sala.sim" | translate }}
+                            </button>
+                        </div>
+                    </div>
+                }
+            }
+            @else {
+                <button 
+                    class="icon-text-btn grande sem-container"
+                    (click)="inverterFavoritoSalaSelecionada()"
+                >
+                    <i class="bi bi-bookmark"></i>
+                    {{ ("painel.opcoes-sala." + (salaSelecionada?.favoritada ? 'desfavoritar' : 'favoritar')) | translate}}
+                </button>
+            }
+        </div>
+    </div>
+</app-modal-dialog>

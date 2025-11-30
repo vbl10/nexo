@@ -1,0 +1,39 @@
+<section class="painel painel-controle">
+    <h3>{{ "sala.acoes.titulo" | translate }}</h3>
+    <div class="atuadores">
+        @for (atuador of binarias; track $index) {
+            <app-toggle-switch 
+                [(estado)]="cache[atuador.codigo]"
+                (estadoChange)="mqttService.definirAtuador(atuador.codigo, cache[atuador.codigo])"
+                [disabled]="!atuador.desc.confirmado"
+                [id]="atuador.codigo"
+            >
+                {{ atuador.desc.nome }}
+            </app-toggle-switch>
+        }
+        @if (binarias.length > 0) {
+            <hr />
+        }
+        @for (atuador of limitadas; track $index) {
+            <div>
+                <div class="slider-container">
+                    <label for="{{atuador.codigo}}">
+                        <span>{{ atuador.desc.nome }}: </span>
+                        <span style="text-wrap: nowrap;">{{cache[atuador.codigo]?.toPrecision(5)}} {{atuador.desc.unidade}}</span>
+                    </label>
+                    <input
+                        type="range"
+                        class="slider"
+                        [min]="atuador.desc.min"
+                        [max]="atuador.desc.max"
+                        [step]="atuador.desc.passo"
+                        id="{{atuador.codigo}}"
+                        (change)="mqttService.definirAtuador(atuador.codigo, cache[atuador.codigo])"
+                        [(ngModel)]="cache[atuador.codigo]"
+                        [disabled]="!atuador.desc.confirmado"
+                    />
+                </div>
+            </div>
+        }
+    </div>
+</section>

@@ -1,0 +1,103 @@
+.label {
+    word-wrap: break-word;
+}
+input, select {
+    width: 100%;
+}
+
+.gap {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.container {
+    margin: 5px;
+}
+
+.retraivel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: all 0.2s;
+
+    > .cabecalho {
+        --hover-color: var(--secundario);
+        font-size: 1em;
+        outline: none;
+        border: none;
+        background-color: var(--background);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        padding: 0;
+        transition: all 0.2s;
+
+        &:hover, &:focus {
+            background-color: hsl(from var(--hover-color) h s l / 0.1);
+            box-shadow: inset 0 0 10px 2px var(--background);
+        }
+
+        > .titulo-cabecalho {
+            margin: 0;
+        }
+
+        > .bi-chevron-right {
+            transform: rotate(90deg);
+            transition: all 0.2s;   
+        }
+
+        .bi.bi-exclamation-circle {
+            opacity: 0%;
+            transition: opacity 0.2s;
+        }
+    }
+    > .corpo {
+        display: grid;
+        grid-template-rows: 1fr;
+        transition: grid-template-rows 0.2s;
+        padding-left: 30px;
+        @media (max-width: 700px) {
+            padding-left: 10px;
+        }
+
+        > div {
+            overflow: hidden;
+        }
+    }
+
+    &.retraido {
+        gap: 0px;
+        > .cabecalho { 
+            .bi-chevron-right {
+                transform: unset;
+            }
+            .bi.bi-exclamation-circle {
+                opacity: 100%;
+            }
+        }
+        > .corpo {
+            grid-template-rows: 0fr;
+        }
+
+        &.invalido {
+            > .cabecalho {
+                --hover-color: var(--erro);
+                color: var(--erro);
+                > .titulo-cabecalho {
+                    color: var(--erro);
+                }
+            }
+        }
+    }
+}
+
+.opcoes-arranjo {
+    padding: 5px;
+    display: flex;
+    gap: 5px;
+    @media (max-width: 360px) {
+        flex-direction: column;
+    }
+}

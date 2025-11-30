@@ -1,0 +1,7 @@
+.clique-copia {
+    display: inline-flex;
+    &.copiado {
+        --cor: rgb(14, 157, 14);
+        background-color: rgba(from var(--cor) r g b / 0.15);
+    }
+}

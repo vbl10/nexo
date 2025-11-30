@@ -1,0 +1,6 @@
+@use '../../../popover.scss';
+
+.conteudo {
+    max-height: min(400px, calc(100vh - 60px));
+    overflow: auto;
+}

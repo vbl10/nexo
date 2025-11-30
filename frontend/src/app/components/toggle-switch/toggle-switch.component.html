@@ -1,0 +1,13 @@
+<div class="toggle-switch" (click)="toggle()">
+    <input
+        type="checkbox"
+        [id]="id"
+        [checked]="estado == 1 ? true : false"
+        [disabled]="disabled"
+    />
+    <div [ngClass]="[tamanho]">
+        <div></div>
+        <div></div>
+    </div>
+    <label [for]="id"><ng-content></ng-content></label>
+</div>

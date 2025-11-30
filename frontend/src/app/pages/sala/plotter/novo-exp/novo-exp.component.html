@@ -1,0 +1,39 @@
+<app-modal-dialog #dialog (aofechar)="aoFechar()">
+    <div style="padding: 20px;">
+        <h2 style="margin-bottom: 20px;">{{ "sala.plotter.novo-exp.titulo" | translate }}</h2>
+        <form 
+            class="form" 
+            style="display: flex; flex-direction: column; gap: 25px;"
+            [formGroup]="form"
+            (ngSubmit)="criarExperimento()"
+        >
+            <div>
+                <label for="novoExpNome">{{ "sala.plotter.novo-exp.form.nome" | translate }}</label>
+                <input class="controle" type="text" id="novoExpNome" formControlName="nome"/>
+            </div>
+            <div>
+                <label for="novoExpUnidade">{{ "sala.plotter.novo-exp.form.unidade" | translate }}</label>
+                <select class="controle" type="number" name="" id="novoExpUnidade" formControlName="unidade">
+                   <option *ngFor="let unidade of unidadesTempo" [value]="unidade">
+                        {{ ('comum.unidades-tempo-extenso-singular.' + unidade) | translate }}
+                   </option>
+                </select>
+            </div>
+            <div>
+                <label for="novoExpPeriodoAmostragem">{{ "sala.plotter.novo-exp.form.periodo" | translate }}</label>
+                <input class="controle" type="number" name="" id="novoExpPeriodoAmostragem" formControlName="periodo"/>
+            </div>
+            <span *ngIf="form.dirty && form.invalid && this.form.hasError('periodo-invalido')" class="erro">
+                <i class="bi bi-exclamation-circle"></i> 
+                {{ 'sala.plotter.novo-exp.form.erros.periodo-invalido' | translate: {
+                    min: this.form.getError('periodo-invalido')?.min,
+                    max: this.form.getError('periodo-invalido')?.max
+                } }}
+            </span>
+            <button type="submit" class="btn primario" [disabled]="this.iniciando || form.invalid">
+                {{ "sala.plotter.novo-exp.form" + (iniciando ? ".aguarde" : ".criar") | translate }}
+            </button>
+            <span *ngIf="erro.length" class="erro"><i class="bi bi-exclamation-circle"></i> {{ ("sala.plotter.novo-exp.form.erros." + erro) | translate }}</span>
+        </form>
+    </div>
+</app-modal-dialog>

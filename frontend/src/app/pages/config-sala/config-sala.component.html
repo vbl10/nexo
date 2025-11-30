@@ -1,0 +1,13 @@
+<div style="display: flex; gap: 10px; align-items: center; margin-bottom: 2.2em;">
+    <button class="icon-btn-circle" routerLink="/inicio"><i class="bi bi-arrow-left"></i></button>
+    <h1 style="margin: 0;">{{ ("config-sala.titulo-" + (codigoSala ? 'configurar' : 'criar')) | translate }}</h1>
+</div>
+<div *ngIf="form" class="form-config-sala">
+    <div style="margin-bottom: 4.4em;">
+        <app-auto-form #autoForm [controle]="form"></app-auto-form>
+    </div>
+    <button class="btn primario" style="width: 100%;" [disabled]="form.controle.invalid || form.controle.pending" (click)="salvar()">
+        {{('config-sala.' + (codigoSala ? 'salvar' : 'criar')) | translate}}
+    </button>
+</div>
+<!--pre>{{JSON_stringfy(form.controle.value, null, '.      ')}}</pre-->

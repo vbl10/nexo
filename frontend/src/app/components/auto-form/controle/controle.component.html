@@ -1,0 +1,351 @@
+@if (controle.visivel) {
+    @if (indice == undefined) {
+        @if (ehGrupo(controle)) {
+            @if (nome) {
+                <div [formGroup]="paraFormGroup(controle.controle.parent!)">
+                    <div [formGroupName]="nome" [ngClass]="['gap', controle.estilo.container ? 'container' : '']" [style]="controle.estilo.estilo ?? ''">
+                        @if (controle.estilo.retraido == undefined) {
+                            <span *ngIf="controle.estilo.titulo" [class]="controle.estilo.titulo">{{(controle.nome + '._nome') | translate}}</span>
+                            @for (entry of getEntries(controle.campos); track $index) {
+                                @if (entry[1].visivel && paraFormGroup(controle.controle).get(entry[0])) {
+                                    <app-controle 
+                                        id="{{id}}-{{$index}}"
+                                        [nome]="entry[0]" 
+                                        [controle]="entry[1]"
+                                        [aoClicarInfoParente]="aoClicarInfoParente"
+                                        [desabilitado]="desabilitado"
+                                    >
+                                    </app-controle>
+                                }
+                            }
+                        }
+                        @else {
+                            <div 
+                                #retratil 
+                                [ngClass]="[
+                                        'retraivel', 
+                                        controle.estilo.retraido ? 'retraido' : '', 
+                                        controle.controle.invalid ? 'invalido' : ''
+                                    ]"
+                                >
+                                <button type="button" class="cabecalho" (click)="retratil.classList.toggle('retraido');" [tabIndex]="desabilitado ? -1 : 0">
+                                    <span [ngClass]="[controle.estilo.titulo, 'titulo-cabecalho']" *ngIf="controle.estilo.titulo">
+                                        {{(controle.nome + '._nome') | translate}}&nbsp;
+                                        <i *ngIf="controle.controle.invalid" class="bi bi-exclamation-circle"></i>
+                                    </span>
+                                    <i class="bi bi-chevron-right"></i>
+                                </button>
+                                <div class="corpo">
+                                    <div class="gap">
+                                        @for (entry of getEntries(controle.campos); track $index) {
+                                            @if (entry[1].visivel && paraFormGroup(controle.controle).get(entry[0])) {
+                                                <app-controle 
+                                                    id="{{id}}-{{$index}}"
+                                                    [nome]="entry[0]" 
+                                                    [controle]="entry[1]"
+                                                    [aoClicarInfoParente]="aoClicarInfoParente"
+                                                    [desabilitado]="desabilitado || retratil.classList.contains('retraido')"
+                                                >
+                                                </app-controle>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            @else {
+                <div 
+                    [formGroup]="paraFormGroup(controle.controle)" 
+                    [ngClass]="['gap', controle.estilo.container ? 'container' : '']" 
+                    [style]="controle.estilo.estilo ?? ''"
+                >
+                    @for (entry of getEntries(controle.campos); track $index) {
+                        @if (entry[1].visivel && paraFormGroup(controle.controle).get(entry[0])) {
+                            <app-controle 
+                                id="{{id}}-{{$index}}" 
+                                [nome]="entry[0]" 
+                                [controle]="entry[1]"
+                                [aoClicarInfoParente]="aoClicarInfoParente"
+                                [desabilitado]="desabilitado"
+                            >
+                            </app-controle>
+                        }
+                    }
+                </div>
+            }
+        }
+        @else if (ehArranjo(controle)) {
+            <div [formGroup]="paraFormGroup(controle.controle.parent!)">
+                <div 
+                    [formArrayName]="nome" 
+                    [ngClass]="['gap', controle.estilo.container ? 'container' : '']" 
+                    [style]="controle.estilo.estilo"
+                >
+                    @if (controle.estilo.retraido == undefined) {
+                        <span *ngIf="controle.estilo.titulo" [class]="controle.estilo.titulo">{{(controle.nome + '._nome') | translate}}</span>
+                        @for (item of controle.itens; track $index) {
+                            <div 
+                                *ngIf="item.visivel && controle.controle.get([$index])"
+                                (click)="indiceRemover = $index"
+                            >
+                                <app-controle 
+                                    id="{{id}}-{{$index}}" 
+                                    [nome]="nome" 
+                                    [indice]="$index" 
+                                    [controle]="item"
+                                    [aoClicarInfoParente]="aoClicarInfoParente"
+                                    [desabilitado]="desabilitado"
+                                >
+                                </app-controle>
+                            </div>
+                        }
+                        
+                        <div class="opcoes-arranjo">
+                            <button 
+                                *ngIf="controle.opcoes.adicionar" 
+                                type="button" 
+                                class="icon-text-btn medio"
+                                (click)="controle.adicionar()"
+                                [tabIndex]="desabilitado ? -1 : 0"
+                            >
+                                <i class="bi bi-plus"></i>
+                                <span>{{(controle.nome + '._adicionar') | translate}}</span>
+                            </button>
+                            <button 
+                                *ngIf="controle.opcoes.remover" 
+                                type="button" 
+                                class="icon-text-btn medio"
+                                [disabled]="indiceRemover === undefined"
+                                (click)="aoClicarRemover()"
+                            >
+                                <i class="bi bi-trash"></i>
+                                <span>
+                                    {{
+                                        (controle.nome + '._remover') | translate: { 
+                                            indice: indiceRemover != undefined ? '#' + (indiceRemover + 1) : '' 
+                                        } 
+                                    }}
+                                </span>
+                            </button>
+                        </div>
+                    }
+                    @else {
+                        <div 
+                            #retratil 
+                            [ngClass]="[
+                                    'retraivel', 
+                                    controle.estilo.retraido ? 'retraido' : '', 
+                                    controle.controle.invalid ? 'invalido' : ''
+                                ]"
+                            >
+                            <button type="button" class="cabecalho" (click)="retratil.classList.toggle('retraido');" [tabIndex]="desabilitado ? -1 : 0">
+                                <span [ngClass]="[controle.estilo.titulo, 'titulo-cabecalho']" *ngIf="controle.estilo.titulo">
+                                    {{(controle.nome + '._nome') | translate}}&nbsp;
+                                    <i *ngIf="controle.controle.invalid" class="bi bi-exclamation-circle"></i>
+                                </span>
+                                <i class="bi bi-chevron-right"></i>
+                            </button>
+                            <div class="corpo">
+                                <div class="gap">
+                                    @for (item of controle.itens; track $index) {
+                                        <div 
+                                            *ngIf="item.visivel && controle.controle.get([$index])"
+                                            (click)="indiceRemover = $index"
+                                        >
+                                            <app-controle 
+                                                id="{{id}}-{{$index}}" 
+                                                [nome]="nome" 
+                                                [indice]="$index" 
+                                                [controle]="item"
+                                                [aoClicarInfoParente]="aoClicarInfoParente"
+                                                [desabilitado]="desabilitado || retratil.classList.contains('retraido')"
+                                            >
+                                            </app-controle>
+                                        </div>
+                                    }
+                                    <div class="opcoes-arranjo">
+                                        <button 
+                                            *ngIf="controle.opcoes.adicionar" 
+                                            type="button" 
+                                            class="icon-text-btn medio"
+                                            (click)="controle.adicionar()"
+                                            [tabIndex]="(desabilitado || retratil.classList.contains('retraido')) ? -1 : 0"
+                                        >
+                                            <i class="bi bi-plus"></i>
+                                            <span>{{(controle.nome + '._adicionar') | translate}}</span>
+                                        </button>
+                                        <button 
+                                            *ngIf="controle.opcoes.remover" 
+                                            type="button" 
+                                            class="icon-text-btn medio"
+                                            [disabled]="indiceRemover === undefined"
+                                            (click)="aoClicarRemover()"
+                                        >
+                                            <i class="bi bi-trash"></i>
+                                            <span>
+                                            {{
+                                                (controle.nome + '._remover') | translate: { 
+                                                    indice: indiceRemover != undefined ? '#' + (indiceRemover + 1) : '' 
+                                                } 
+                                            }}
+                                        </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        @else {
+            <div [formGroup]="paraFormGroup(controle.controle.parent!)" [ngClass]="controle.controle.invalid ? 'invalido' : ''">
+                <label 
+                    style="display: block;" 
+                    [style]="ehTexto(controle) || ehSeletor(controle) ? controle.estilo?.rotulo?.estilo : ''" 
+                    [class]="ehTexto(controle) || ehSeletor(controle) ? controle.estilo?.rotulo?.classe : ''" 
+                    for="{{id}}" 
+                    [innerHTML]="(controle.nome + '._nome') | translate"
+                >
+                </label>
+                <div class="controle">
+                    @if (ehSeletor(controle)) {
+                        <select 
+                            *ngIf="controle.prontoParaExibir"
+                            id="{{id}}" 
+                            formControlName="{{nome}}" 
+                            [style]="controle.estilo?.entrada?.estilo ?? ''" 
+                            [class]="controle.estilo?.entrada?.classe ?? ''" 
+                            [tabIndex]="desabilitado ? -1 : 0"
+                        >
+                            <option *ngFor="let val of controle.opcoes" value="{{val}}">
+                                {{
+                                    (((controle.caminhoTraducoesOpcoes ?? (controle.nome + '._opcoes')) + '.' + val) | translate) != ((controle.caminhoTraducoesOpcoes ?? (controle.nome + '._opcoes')) + '.' + val)
+                                    ? (((controle.caminhoTraducoesOpcoes ?? (controle.nome + '._opcoes')) + '.' + val) | translate)
+                                    : (((controle.caminhoTraducoesOpcoes ?? (controle.nome + '._opcoes')) + '.*') | translate: {val: val})
+                                }}
+                            </option>
+                        </select>
+                    }
+                    @else if (ehTexto(controle)) {
+                        <input 
+                            type="text" 
+                            id="{{id}}" 
+                            formControlName="{{nome}}" 
+                            [class]="controle.estilo?.entrada?.classe ?? ''" 
+                            [style]="controle.estilo?.entrada?.estilo ?? ''" 
+                            [placeholder]="(controle.nome + '._placeholder') | translate" 
+                            [tabIndex]="desabilitado ? -1 : 0"
+                            [spellcheck]="controle.checagemOrtografica ?? false"
+                        >
+                    }
+                    <button 
+                        *ngIf="controle.info" 
+                        type="button" 
+                        class="icon-btn secundario small"
+                        (click)="aoClicarInfo()"
+                        [tabIndex]="desabilitado ? -1 : 0"
+                    >
+                        <i class="bi bi-info-circle"></i>
+                    </button>
+                </div>
+                <ul class="erro">
+                    <li *ngFor="let erro of getEntries(controle.controle.errors ?? {})">
+                        <i class="bi bi-exclamation-circle"></i> {{ (controle.nome + '._erros.' + erro[0]) | translate: { erro: erro[1] } }}
+                    </li>
+                </ul>
+            </div>
+        }
+    }
+    @else {
+        <div [formGroup]="paraFormGroup(controle.controle.parent?.parent!)">
+            <div [formArrayName]="nome">
+                @if (ehGrupo(controle)) {
+                    <div [formGroupName]="indice" [ngClass]="['gap', controle.estilo.container ? 'container' : '']">
+                        @if (controle.estilo.retraido == undefined) {
+                            <span *ngIf="controle.estilo.titulo" [class]="controle.estilo.titulo">{{(controle.nome + '._nome') | translate}}</span>
+                            @for (entry of getEntries(controle.campos); track $index) {
+                                @if (entry[1].visivel && paraFormGroup(controle.controle).get(entry[0])) {
+                                    <app-controle 
+                                        id="{{id}}-{{$index}}"
+                                        [nome]="entry[0]" 
+                                        [controle]="entry[1]"
+                                        [aoClicarInfoParente]="aoClicarInfoParente"
+                                        [desabilitado]="desabilitado"
+                                    >
+                                    </app-controle>
+                                }
+                            }
+                        }
+                        @else {
+                            <div 
+                                #retratil 
+                                [ngClass]="[
+                                        'retraivel', 
+                                        controle.estilo.retraido ? 'retraido' : '', 
+                                        controle.controle.invalid ? 'invalido' : ''
+                                    ]"
+                                >
+                                <button type="button" class="cabecalho" (click)="retratil.classList.toggle('retraido');" [tabIndex]="desabilitado ? -1 : 0">
+                                    <span [ngClass]="[controle.estilo.titulo, 'titulo-cabecalho']" *ngIf="controle.estilo.titulo">
+                                        {{(controle.nome + '._nome') | translate}}&nbsp;
+                                        <i *ngIf="controle.controle.invalid" class="bi bi-exclamation-circle"></i>
+                                    </span>
+                                    <i class="bi bi-chevron-right"></i>
+                                </button>
+                                <div class="corpo">
+                                    <div class="gap">
+                                        @for (entry of getEntries(controle.campos); track $index) {
+                                            @if (entry[1].visivel && paraFormGroup(controle.controle).get(entry[0])) {
+                                                <app-controle 
+                                                    id="{{id}}-{{$index}}"
+                                                    [nome]="entry[0]" 
+                                                    [controle]="entry[1]"
+                                                    [aoClicarInfoParente]="aoClicarInfoParente"
+                                                    [desabilitado]="desabilitado || retratil.classList.contains('retraido')"
+                                                >
+                                                </app-controle>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                @else if (ehArranjo(controle)) {
+                    <div [ngClass]="['gap', controle.estilo.container ? 'container' : '']">
+                        <span *ngIf="controle.estilo.titulo" [class]="controle.estilo.titulo">{{(controle.nome + '._nome') | translate}}</span>
+                        @for (item of controle.itens; track $index) {
+                            <app-controle 
+                                *ngIf="item.visivel"
+                                id="{{id}}-{{$index}}" 
+                                [nome]="indice" 
+                                [indice]="$index" 
+                                [controle]="item"
+                                [aoClicarInfoParente]="aoClicarInfoParente"
+                            ></app-controle>
+                        }
+                    </div>
+                }
+                @else if (controle.controle.parent!.get([indice])) {
+                    <div [ngClass]="(controle.controle.invalid && controle.controle.touched) ? 'invalido' : ''">
+                        @if (ehSeletor(controle)) {
+                            <label style="display: block;" for="{{id}}">{{(controle.nome + '._nome') | translate}}</label>
+                            <select class="controle" id="{{id}}" formControlName="{{indice}}">
+                                <option *ngFor="let val of controle.opcoes" value="{{val}}">{{(controle.nome + '._opcoes.' + val) | translate}}</option>
+                            </select>
+                        }
+                        @else if (ehTexto(controle)) {
+                            <label style="display: block;" for="{{id}}">{{controle.nome | translate}}</label>
+                            <input class="controle" type="text" id="{{id}}" formControlName="{{indice}}">
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    }
+}

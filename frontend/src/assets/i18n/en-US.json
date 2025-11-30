@@ -1,0 +1,388 @@
+{
+    "idiomas": {
+        "pt-BR": "🇧🇷 pt-BR",
+        "es-ES": "🇪🇸 es-ES",
+        "en-US": "🇺🇲 en-US"
+    },
+    "comum": {
+        "unidades-tempo-extenso-singular": {
+            "milisegundo": "millisecond",
+            "segundo": "second",
+            "minuto": "minute",
+            "hora": "hour",
+            "dia": "day",
+            "semana": "week",
+            "mes": "month"
+        },
+        "unidades-tempo-extenso-plural": {
+            "milisegundo": "milliseconds",
+            "segundo": "seconds",
+            "minuto": "minutes",
+            "hora": "hours",
+            "dia": "days",
+            "semana": "weeks",
+            "mes": "months"
+        }
+    },
+    "cabecalho": {
+        "menu": {
+            "sair": "Logout"
+        }
+    },
+    "login": {
+        "titulo": "Login",
+        "form": {
+            "titulo": "Login",
+            "usuario": "Username",
+            "senha": "Password",
+            "entrar": "Login",
+            "erros": {
+                "usuario-inexistente": "User does not exist",
+                "senha-incorreta": "Incorrect password",
+                "desconhecido": "Unknown error"
+            }
+        },
+        "criar": "Create a new account"
+    },
+    "signup": {
+        "titulo": "Create Account",
+        "form": {
+            "titulo": "Create Account",
+            "nome": "Name",
+            "usuario": "Username",
+            "senha": "Password",
+            "confirme-a-senha": "Confirm Password",
+            "criar": "Create",
+            "erros": {
+                "nome-obrigatorio": "Name is required",
+                "usuario-obrigatorio": "Username is required",
+                "usuario-curto": "Username too short (min. {{min}})",
+                "usuario-ja-existe": "Username already exists",
+                "senha-obrigatoria": "Password is required",
+                "senha-curta": "Password too short (min. {{min}})",
+                "senha-minuscula": "Must include a lowercase letter",
+                "senha-maiuscula": "Must include an uppercase letter",
+                "senha-digito": "Must include a digit",
+                "senha-especial": "Must include a special character",
+                "confirmar-senha-obrigatorio": "Password confirmation is required",
+                "senhas-diferentes": "Passwords must match",
+                "desconhecido": "Unknown error"
+            }
+        },
+        "entrar": "Login with my account"
+    },
+    "painel": {
+        "titulo": "Dashboard",
+        "criar-sala": "Create Room",
+        "procurar-sala": {
+            "abrir": "Find Room",
+            "placeholder": "Room code or name"
+        },
+        "nada-aqui": "Nothing here...",
+        "minhas-salas": "My Rooms",
+        "salas-favoritadas": "Favorited Rooms",
+        "opcoes-sala": {
+            "configurar": "Configure",
+            "excluir": "Delete",
+            "confirmar": "Confirm deletion of ",
+            "nao": "No",
+            "sim": "Yes",
+            "favoritar": "Favorite",
+            "desfavoritar": "Unfavorite"
+        },
+        "remover-sala": {
+            "mensagem": "Remove room \"{{sala}}\"?",
+            "sim": "Yes",
+            "cancelar": "Cancel"
+        }
+    },
+    "config-sala": {
+        "titulo-configurar": "Configure Room",
+        "titulo-criar": "Create Room",
+        "salvar": "Save",
+        "criar": "Create",
+        "porta": {
+            "_nome": "Port",
+            "_erros": {
+                "seletor-compartilhado-nenhum": "Choose a valid port"
+            }
+        },
+        "portas": {
+            "_nenhum": "None",
+            "*": "GPIO {{val}}"
+        },
+        "nome": {
+            "_nome": "Name",
+            "_placeholder": "E.g.: Room 1",
+            "valor-inicial": "Room 1",
+            "_erros": {
+                "required": "Name is required"
+            }
+        },
+        "variavel": {
+            "_nome": "Variable",
+            "nome": {
+                "_nome": "Name",
+                "_placeholder": "Meaning of this variable...",
+                "_info": {
+                    "_titulo": "Name",
+                    "_corpo": "<p>Name displayed in the user interface for this variable.</p>"
+                },
+                "_erros": {
+                    "required": "Name is required"
+                }
+            },
+            "unidade": {
+                "_nome": "Unit",
+                "_placeholder": "E.g.: °C",
+                "_info": {
+                    "_titulo": "Unit",
+                    "_corpo": "<p>The variable unit to be displayed in the user interface after applying f(x).</p><p>Examples: °C, m, m/s, g, kg</p>"
+                }
+            },
+            "f": {
+                "_nome": "f(x)",
+                "_placeholder": "E.g.: (x - 32) * 5/9",
+                "_info": {
+                    "_titulo": "f(x)",
+                    "_corpo": "<p>Function to transform the values received from the embedded system for display in the interface.</p><p>Supports basic math operations and functions such as \"sqrt(x)\" (square root) and \"sin(x)\" (sine)</p><p>Input values between 0 and 1 for analog type, 0 or 1 for digital type, or in the magnitude defined in the \"Unit\" field.</p>"
+                },
+                "_erros": {
+                    "expressao-invalida": "Invalid expression"
+                }
+            },
+            "f_inv": {
+                "_nome": "f<sup>-1</sup>(x)",
+                "_placeholder": "E.g.: x * 9/5 + 32",
+                "_info": {
+                    "_titulo": "f<sup>-1</sup>(x)",
+                    "_corpo": "<p>Function to transform values defined in the interface for use in the embedded system.</p><p>Supports basic math operations and functions such as \"sqrt(x)\" (square root) and \"sin(x)\" (sine)</p><p>Input values between 0 and 1 for analog type, 0 or 1 for digital type, or in the magnitude defined in the \"Unit\" field.</p>"
+                },
+                "_erros": {
+                    "expressao-invalida": "Invalid expression"
+                }
+            }
+        },
+        "cameras": {
+            "_nome": "Cameras",
+            "_adicionar": "Add Camera",
+            "_remover": "Remove Camera {{indice}}",
+            "nome": {
+                "_nome": "Name",
+                "_placeholder": "E.g.: Bench",
+                "_erros": {
+                    "required":"Name is required"
+                }
+            }
+        },
+        "sensores": {
+            "_nome": "Sensors",
+            "_adicionar": "Add Sensor",
+            "_remover": "Remove Sensor {{indice}}",
+            "tipo": {
+                "_nome": "Type",
+                "_opcoes": {
+                    "digital": "Digital",
+                    "analogico": "Analog",
+                    "dht11": "DHT11",
+                    "carga": "Load",
+                    "distancia": "Distance"
+                }
+            },
+            "configuracoes": {
+                "_nome": "Settings",
+                "digital": {
+                    "variaveis": {
+                        "_nome": "Variables",
+                        "digital": {
+                            "_nome": "Digital Reading"
+                        }
+                    }
+                },
+                "analogico": {
+                    "variaveis": {
+                        "_nome": "Variables",
+                        "analogica": {
+                            "_nome": "Analog Reading"
+                        }
+                    }
+                },
+                "dht11": {
+                    "variaveis": {
+                        "_nome": "Variables",
+                        "temperatura": {
+                            "_nome": "Temperature"
+                        },
+                        "umidade": {
+                            "_nome": "Humidity"
+                        }
+                    }
+                },
+                "carga": {
+                    "modulo": {
+                        "_nome": "Module",
+                        "_opcoes": {
+                            "hx711": "HX711"
+                        }
+                    },
+                    "carga-maxima": {
+                        "_nome": "Maximum Load",
+                        "_opcoes": {
+                            "500g": "500g",
+                            "1kg": "1kg",
+                            "2kg": "2kg",
+                            "5kg": "5kg",
+                            "10kg": "10kg"
+                        }
+                    },
+                    "porta-a": {
+                        "_nome": "Port A",
+                        "_erros": {
+                            "seletor-compartilhado-nenhum": "Choose a valid port"
+                        }
+                    },
+                    "porta-b": {
+                        "_nome": "Port B",
+                        "_erros": {
+                            "seletor-compartilhado-nenhum": "Choose a valid port"
+                        }
+                    },
+                    "variaveis": {
+                        "_nome": "Variables",
+                        "carga": {
+                            "_nome": "Load"
+                        }
+                    }
+                },
+                "distancia": {
+                    "modulo": {
+                        "_nome": "Module",
+                        "_opcoes": {
+                            "hcsr04": "HC-SR04"
+                        }
+                    },
+                    "porta-a": {
+                        "_nome": "Port A",
+                        "_erros": {
+                            "seletor-compartilhado-nenhum": "Choose a valid port"
+                        }
+                    },
+                    "porta-b": {
+                        "_nome": "Port B",
+                        "_erros": {
+                            "seletor-compartilhado-nenhum": "Choose a valid port"
+                        }
+                    },
+                    "variaveis": {
+                        "_nome": "Variables",
+                        "distancia": {
+                            "_nome": "Distance"
+                        }
+                    }
+                }
+            }
+        },
+        "atuadores": {
+            "_nome": "Actuators",
+            "_adicionar": "Add Actuator",
+            "_remover": "Remove Actuator {{indice}}",
+            "tipo": {
+                "_nome": "Type",
+                "_opcoes": {
+                    "digital": "Digital",
+                    "analogico": "Analog",
+                    "motor-dc": "DC Motor"
+                }
+            },
+            "configuracoes": {
+                "_nome": "Settings",
+                "digital": {
+                    "variaveis": {
+                        "_nome": "Variables",
+                        "digital": {
+                            "_nome": "Digital Write"
+                        }
+                    }
+                },
+                "analogico": {
+                    "variaveis": {
+                        "_nome": "Variables",
+                        "analogica": {
+                            "_nome": "Analog Write"
+                        }
+                    }
+                },
+                "motor-dc": {
+                    "porta-a": {
+                        "_nome": "Port A"
+                    },
+                    "porta-b": {
+                        "_nome": "Port B"
+                    },
+                    "variaveis": {
+                        "_nome": "Variables",
+                        "potencia": {
+                            "_nome": "Power"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "sala": {
+        "titulo": "Room",
+        "nada-aqui": "Add actuators and sensor to this room to see them here...",
+        "acoes": {
+            "titulo": "Actions"
+        },
+        "sensores": {
+            "titulo": "Sensors"
+        },
+        "player": {
+            "conecte-sua-camera": "Connect your camera",
+            "detalhes-conexao": {
+                "titulo": "Connect Camera",
+                "url": "URL",
+                "chave-stream": "Stream Key"
+            },
+            "status": {
+                "carregando": "Loading...",
+                "offline": "Stream Offline",
+                "payload": "Error {{codigo}}: {{tipo}}",
+                "nao-suportado": "Player not supported!",
+                "ambiente": "Application running in environment \"{{ambiente}}\"",
+                "conectando": "Connecting..."
+            }
+        },
+        "plotter": {
+            "titulo": "Variables x Time",
+            "novo-exp": {
+                "titulo": "Create New Experiment",
+                "form": {
+                    "nome": "Name",
+                    "unidade": "Unit",
+                    "periodo": "Sampling Period",
+                    "criar": "Create",
+                    "aguarde": "Please wait...",
+                    "erros": {
+                        "timeout": "Embedded device did not respond in time",
+                        "outro": "Server did not respond in time or another experiment is running",
+                        "periodo-invalido": "Sampling period must be between {{min}} and {{max}}"
+                    }
+                }
+            },
+            "opcoes": {
+                "experimento": "Experiment",
+                "variaveis": "Variables",
+                "seguir-amostras": "Follow Samples",
+                "escala-tempo": "Time Scale",
+                "escala-y": "Values Scale",
+                "espessura-linha": "Line Thickness"
+            },
+            "eixos": {
+                "x": "Time",
+                "y": "Values"
+            }
+        }
+    }
+}
