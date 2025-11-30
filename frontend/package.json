@@ -8,6 +8,7 @@
     "start-teste-prod": "ng serve --configuration=teste-prod",
     "start-static": "ng serve --configuration=static",
     "build": "ng build",
+    "build-github": "ng build --output-path ../docs --delete-output-path --base-href /nexo/ --deploy-url /nexo/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
