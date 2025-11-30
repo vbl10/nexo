@@ -7,10 +7,12 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideRouter, TitleStrategy } from '@angular/router';
 import { routes } from './app.routes';
 import { TranslatedTitleStrategy } from './strategies/translated-title.strategy';
+import { PlatformLocation } from '@angular/common';
 
 
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
+export function HttpLoaderFactory(http: HttpClient, platformLocation: PlatformLocation) {
+
+  return new TranslateHttpLoader(http, `${platformLocation.getBaseHrefFromDOM()}assets/i18n/`, '.json');
 }
 
 export const appConfig: ApplicationConfig = {
@@ -23,7 +25,7 @@ export const appConfig: ApplicationConfig = {
             loader: {
                 provide: TranslateLoader,
                 useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
+                deps: [HttpClient, PlatformLocation]
             }
         })
     ),
